@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="8dp"
+	tools:context=".ui.fragments.home.HomeFragment">
+	
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fillViewport="true"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<!--  header	-->
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/note_tool_bar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+				
+				<!--	profile image	-->
+				<com.google.android.material.card.MaterialCardView
+					android:id="@+id/profile_card"
+					android:layout_width="50dp"
+					android:layout_height="50dp"
+					app:cardCornerRadius="8dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+					
+					<ImageView
+						android:id="@+id/profile_image"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:scaleType="centerCrop"
+						android:src="@drawable/ic_launcher_background"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+				
+				</com.google.android.material.card.MaterialCardView>
+				<!--	title	-->
+				<TextView
+					android:id="@+id/main_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/reminders"
+					android:textColor="@color/EerieBlack"
+					android:textSize="28sp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/profile_card" />
+			
+			
+			</androidx.constraintlayout.widget.ConstraintLayout>
+			
+			<!--	 content layout		-->
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/content_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				app:layout_constraintTop_toBottomOf="@id/note_tool_bar">
+				
+				<!--  pin layout	-->
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/pin_layout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+					
+					<TextView
+						android:id="@+id/pin_txt_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Pinned"
+						android:textColor="@color/SlateGray"
+						android:textSize="20sp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+					
+					<androidx.recyclerview.widget.RecyclerView
+						android:id="@+id/pin_rec"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal"
+						app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/pin_txt_title"
+						tools:listitem="@layout/item_note" />
+				
+				
+				</androidx.constraintlayout.widget.ConstraintLayout>
+				<!--  upcoming layout	-->
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/upcoming_layout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/pin_layout">
+					
+					<TextView
+						android:id="@+id/upcoming_txt_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Upcoming"
+						android:textColor="@color/SlateGray"
+						android:textSize="20sp"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent" />
+					
+					<androidx.recyclerview.widget.RecyclerView
+						android:id="@+id/upcoming_rec"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical"
+						app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/upcoming_txt_title"
+						app:spanCount="2"
+						tools:listitem="@layout/item_note" />
+				
+				
+				</androidx.constraintlayout.widget.ConstraintLayout>
+			
+			
+			</androidx.constraintlayout.widget.ConstraintLayout>
+			
+			<!--	empty note layout	-->
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/empty_note_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+				
+				
+				<ImageView
+					android:id="@+id/note_image"
+					android:layout_width="200dp"
+					android:layout_height="200dp"
+					android:src="@drawable/note"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+				
+				<TextView
+					android:id="@+id/note_txt_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Your list is empty, please create new note."
+					android:textColor="@color/SafetyOrange"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/note_image" />
+			
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	
+	</androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

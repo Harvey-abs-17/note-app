@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="200dp"
+	android:layout_height="wrap_content"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:cardCornerRadius="8dp"
+	app:cardBackgroundColor="@color/Crayola"
+	app:cardElevation="4dp"
+	android:layout_margin="8dp">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="8dp">
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Note title"
+			android:textColor="@color/EerieBlack"
+			android:textSize="18sp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:id="@+id/note_title"
+			android:textStyle="bold"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"/>
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/note_title"
+			app:layout_constraintStart_toStartOf="parent"
+			android:id="@+id/note_description"
+			android:text="Note description"
+			android:textColor="@color/EerieBlack"
+			android:layout_marginTop="4dp"
+			android:textSize="16sp"/>
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/note_description"
+			android:layout_marginTop="8dp"
+			android:background="@drawable/bg_note_item_date"
+			android:padding="8dp">
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:id="@+id/note_date_txt"
+				android:text="Note description"
+				android:textColor="@color/EerieBlack"
+				app:layout_constraintTop_toTopOf="parent"/>
+			
+		</androidx.constraintlayout.widget.ConstraintLayout>
+		
+		
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

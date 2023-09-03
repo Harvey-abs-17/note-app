@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="black">#FF000000</color>
+	<color name="white">#FFFFFFFF</color>
+	<color name="Crayola">#EF476F</color>
+	<color name="SunGlow">#FFD166</color>
+	<color name="Emerald">#06D6A0</color>
+	<color name="Blue">#118AB2</color>
+	<color name="MidnightGreen">#073B4C</color>
+	<color name="SafetyOrange">#FF7900</color>
+	<color name="FrenchGray">#ADB5BD</color>
+	<color name="SlateGray">#6C757D</color>
+	<color name="LightFrenchGray">#CED4DA</color>
+	<color name="EerieBlack">#212529</color>
+</resources>

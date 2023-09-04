@@ -68,7 +68,6 @@
 				android:id="@+id/content_layout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:visibility="gone"
 				app:layout_constraintTop_toBottomOf="@id/note_tool_bar">
 				
 				<!--  pin layout	-->
@@ -150,7 +149,8 @@
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent">
+				app:layout_constraintTop_toTopOf="parent"
+				android:visibility="gone">
 				
 				
 				<ImageView
@@ -176,6 +176,16 @@
 					app:layout_constraintTop_toBottomOf="@id/note_image" />
 			
 			</androidx.constraintlayout.widget.ConstraintLayout>
+			
+			<ProgressBar
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:id="@+id/home_progress_bar"
+				android:visibility="gone"/>
 		
 		
 		</androidx.constraintlayout.widget.ConstraintLayout>

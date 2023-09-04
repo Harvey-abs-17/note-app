@@ -29,7 +29,7 @@ object NoteModule {
     @Provides
     @Singleton
     fun provideDao(db :NoteDatabase) = db.noteDao()
-    
+
     @Provides
     fun provideNoteEntity() = NoteEntity()
 

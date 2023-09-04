@@ -9,11 +9,13 @@ interface HomeContract {
         fun loadPinnedNotes(notes: List<NoteEntity>)
         fun loadUpcomingNotes(notes: List<NoteEntity>)
         fun showLoading(isShown: Boolean)
-        fun showEmpty()
+        fun showEmpty(isShown: Boolean)
+        fun visiblePinnedView(isShown: Boolean)
+        fun visibleUpcomingView(isShown: Boolean)
     }
 
     interface Presenter : BasePresenter {
-        fun getNotesPresenter(isPinned: Boolean)
+        fun getAllNotePresenter()
     }
 
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.noteapp.R
 import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.databinding.FragmentHomeBinding
 import com.example.noteapp.ui.fragments.home.adapter.NoteAdapter
@@ -41,10 +40,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //get upcoming notes
-        presenter.getNotesPresenter(false)
-        //get pinned Notes
-        presenter.getNotesPresenter(true)
+        presenter.getAllNotePresenter()
     }
 
     //init pinned rec data
@@ -68,14 +64,25 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun showLoading(isShown: Boolean) {
         binding.apply {
             homeProgressBar.showView(isShown)
+        }
+    }
+
+    override fun showEmpty(isShown: Boolean) {
+        binding.apply {
+            emptyNoteLayout.showView(isShown)
             contentLayout.showView(!isShown)
         }
     }
 
-    override fun showEmpty() {
+    override fun visiblePinnedView(isShown: Boolean) {
         binding.apply {
-            contentLayout.showView(false)
-            emptyNoteLayout.showView(true)
+            pinLayout.showView(isShown)
+        }
+    }
+
+    override fun visibleUpcomingView(isShown: Boolean) {
+        binding.apply {
+            upcomingLayout.showView(isShown)
         }
     }
 

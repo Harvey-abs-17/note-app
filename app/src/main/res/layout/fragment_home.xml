@@ -78,7 +78,8 @@
 					android:layout_marginTop="16dp"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent">
+					app:layout_constraintTop_toTopOf="parent"
+					android:visibility="gone">
 					
 					<TextView
 						android:id="@+id/pin_txt_title"
@@ -111,7 +112,8 @@
 					android:layout_marginTop="16dp"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@id/pin_layout">
+					app:layout_constraintTop_toBottomOf="@id/pin_layout"
+					android:visibility="gone">
 					
 					<TextView
 						android:id="@+id/upcoming_txt_title"

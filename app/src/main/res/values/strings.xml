@@ -5,4 +5,7 @@
 	<string name="reminders">Reminders</string>
 	<string name="home">Home</string>
 	<string name="search">Search</string>
+	<string name="pin">Pin</string>
+	<string name="title">Title</string>
+	<string name="type_something">Type something ...</string>
 </resources>

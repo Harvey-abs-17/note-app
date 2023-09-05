@@ -5,6 +5,7 @@
 		<item name="colorOnPrimary">@color/EerieBlack</item>
 		<item name="colorSecondary">@color/SafetyOrange</item>
 		<item name="colorOnSecondary">@color/white</item>
+		<item name="android:windowBackground">?attr/colorPrimary</item>
 		<!-- Customize your light theme here. -->
 		<!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 	</style>

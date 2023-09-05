@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.fragments.note.NoteFragment">
+	
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/main_content_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="top">
+		
+		
+		<!--  Toolbar	-->
+		<com.google.android.material.appbar.MaterialToolbar
+			android:id="@+id/detail_tool_bar"
+			android:layout_width="match_parent"
+			android:layout_height="?actionBarSize"
+			android:background="?attr/colorPrimary"
+			android:elevation="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:menu="@menu/note_menu"
+			app:navigationIcon="@drawable/baseline_keyboard_backspace_24"
+			app:navigationIconTint="?attr/colorOnPrimary"
+			app:title="Add new note"
+			app:titleCentered="true">
+		
+		
+		</com.google.android.material.appbar.MaterialToolbar>
+		
+		<!--  Edit texts container	-->
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/edit_text_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:padding="8dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/detail_tool_bar">
+			
+			<EditText
+				android:id="@+id/title_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="?attr/colorPrimary"
+				android:hint="@string/title"
+				android:padding="8dp"
+				android:textColor="?attr/colorOnPrimary"
+				android:textColorHint="@color/SlateGray"
+				android:textSize="30sp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+			
+			<EditText
+				android:id="@+id/description_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:background="?attr/colorPrimary"
+				android:hint="@string/type_something"
+				android:padding="8dp"
+				android:textColor="?attr/colorOnPrimary"
+				android:textColorHint="@color/SlateGray"
+				android:textSize="20sp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/title_edit_text" />
+		
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	<!--  bottom nav	-->
+	<com.google.android.material.bottomappbar.BottomAppBar
+		android:id="@+id/detail_bottom_app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		android:backgroundTint="?attr/colorOnPrimary"
+		android:paddingVertical="30dp"
+		app:elevation="10dp"
+		app:fabAlignmentMode="center"
+		app:fabAnchorMode="cradle">
+		
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/color_rec"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:orientation="horizontal"
+			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:itemCount="5"
+			tools:listitem="@layout/item_color" />
+	
+	
+	</com.google.android.material.bottomappbar.BottomAppBar>
+	
+	<!--  bottom fab	-->
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/save_btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:backgroundTint="?attr/colorOnPrimary"
+		android:src="@drawable/baseline_check_24"
+		app:layout_anchor="@id/detail_bottom_app_bar"
+		app:tint="@color/SafetyOrange" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

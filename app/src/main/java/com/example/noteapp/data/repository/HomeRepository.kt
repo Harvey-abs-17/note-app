@@ -7,5 +7,6 @@ class HomeRepository @Inject constructor(private val noteDao: NoteDao) {
 
     fun getAllNotesRepository() = noteDao.getAllNotes()
 
+    fun getNotesByPinnedValueRepository(isPinned: Boolean) = noteDao.getNotesByPinnedValue(isPinned)
 
 }

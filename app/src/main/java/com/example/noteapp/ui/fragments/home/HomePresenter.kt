@@ -1,6 +1,7 @@
 package com.example.noteapp.ui.fragments.home
 
 import android.util.Log
+import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.data.repository.HomeRepository
 import com.example.noteapp.ui.base.BasePresenterImpl
 import com.example.noteapp.utils.ERROR_TAG
@@ -15,15 +16,10 @@ class HomePresenter @Inject constructor(
     private val view: HomeContract.View
 ) : BasePresenterImpl(), HomeContract.Presenter {
 
-    //get all notes
-    private val allNotes = repository.getAllNotesRepository()
 
     //get pinned notes
     private fun getPinnedNotesPresenter() {
-        disposable = Observable.fromIterable(allNotes)
-            .filter {
-                it.isPinned
-            }.toList()
+        disposable = repository.getNotesByPinnedValueRepository(true)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -40,10 +36,7 @@ class HomePresenter @Inject constructor(
 
     //get upcoming notes
     private fun getUpcomingNotesPresenter() {
-        disposable = Observable.fromIterable(allNotes)
-            .filter {
-                !it.isPinned
-            }.toList()
+        disposable = repository.getNotesByPinnedValueRepository(false)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -63,7 +56,7 @@ class HomePresenter @Inject constructor(
         view.showLoading(true)
         disposable = Observable.timer(2000, TimeUnit.MILLISECONDS)
             .flatMap {
-                Observable.fromArray(allNotes)
+                return@flatMap repository.getAllNotesRepository()
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

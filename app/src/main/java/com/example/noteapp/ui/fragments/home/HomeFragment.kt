@@ -24,7 +24,10 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     //others
     @Inject
-    lateinit var noteAdapter: NoteAdapter
+    lateinit var upcomingAdapter: NoteAdapter
+
+    @Inject
+    lateinit var pinAdapter: NoteAdapter
 
     @Inject
     lateinit var presenter: HomePresenter
@@ -45,18 +48,18 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     //init pinned rec data
     override fun loadPinnedNotes(notes: List<NoteEntity>) {
-        noteAdapter.setData(notes)
+        pinAdapter.setData(notes)
         binding.pinRec.initRec(
-            noteAdapter,
+            pinAdapter,
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         )
     }
 
     //init upcoming rec data
     override fun loadUpcomingNotes(notes: List<NoteEntity>) {
-        noteAdapter.setData(notes)
+        upcomingAdapter.setData(notes)
         binding.upcomingRec.initRec(
-            noteAdapter,
+            upcomingAdapter,
             StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         )
     }

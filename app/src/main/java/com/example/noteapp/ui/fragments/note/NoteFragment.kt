@@ -18,7 +18,6 @@ import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.databinding.AlertReminderBinding
 import com.example.noteapp.databinding.FragmentNoteBinding
 import com.example.noteapp.ui.fragments.note.adapter.ColorAdapter
-import com.example.noteapp.ui.fragments.note.adapter.NotePresenter
 import com.example.noteapp.utils.Utils
 import com.example.noteapp.utils.initRec
 import com.google.android.material.datepicker.CalendarConstraints
@@ -94,7 +93,7 @@ class NoteFragment : Fragment(), NoteContract.View {
             //save new notes
             saveBtn.setOnClickListener {
                 //fill note entity title and description
-                if (titleEditText.text.isNotEmpty() && descriptionEditText.text.isNotEmpty()) {
+                if (titleEditText.text.isNotEmpty() && descriptionEditText.text.isNotEmpty() && noteEntity.create_date.isNotEmpty() && noteEntity.create_time.isNotEmpty()) {
                     noteEntity.title = titleEditText.text.toString()
                     noteEntity.description = descriptionEditText.text.toString()
                     //save new note
@@ -171,6 +170,7 @@ class NoteFragment : Fragment(), NoteContract.View {
                 alertDialog.dismiss()
             }
             saveBtn.setOnClickListener {
+                //check that if create date and time are not null
                 if (datePickerTxt.text.isNotEmpty() && timePickerTxt.text.isNotEmpty()) {
                     noteEntity.create_time = timePickerTxt.text.toString()
                     noteEntity.create_date = datePickerTxt.text.toString()

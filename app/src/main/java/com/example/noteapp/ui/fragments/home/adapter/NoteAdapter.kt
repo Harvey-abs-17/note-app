@@ -30,9 +30,9 @@ class NoteAdapter @Inject constructor(@ApplicationContext private val context: C
             binding.apply {
                 noteTitle.text = noteItem.title
                 noteDescription.text = noteItem.description
-                noteDateTxt.text = "$${noteItem.create_date}, ${noteItem.create_time}"
+                noteDateTxt.text = "${noteItem.create_date}, ${noteItem.create_time}"
                 // manage note color background
-                root.setBackgroundColor(
+                noteContainer.setBackgroundColor(
                     Utils().setBackgroundColor(
                         noteItem.color,
                         context = context

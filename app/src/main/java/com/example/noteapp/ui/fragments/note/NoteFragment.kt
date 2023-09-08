@@ -51,7 +51,7 @@ class NoteFragment : Fragment(), NoteContract.View {
         Utils.Color.Green,
         Utils.Color.Orange,
         Utils.Color.Red,
-        Utils.Color.White,
+        Utils.Color.MidnightGreen,
         Utils.Color.Yellow
     )
     private val noteArgs: NoteFragmentArgs by navArgs()

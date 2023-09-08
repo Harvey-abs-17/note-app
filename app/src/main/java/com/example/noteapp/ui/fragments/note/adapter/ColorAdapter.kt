@@ -21,9 +21,9 @@ class ColorAdapter @Inject constructor(@ApplicationContext private val context: 
 
         fun bindViews(item: Utils.Color) {
             binding.apply {
-                root.setBackgroundColor(Utils().setBackgroundColor(item, context))
+                colorContainer.setBackgroundColor(Utils().setBackgroundColor(item, context))
                 // send color note fragment
-                root.setOnClickListener {
+                colorContainer.setOnClickListener {
                     onItemClickListener?.let {
                         it(item)
                     }

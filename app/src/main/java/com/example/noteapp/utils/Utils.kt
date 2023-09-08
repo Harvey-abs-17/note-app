@@ -9,8 +9,8 @@ class Utils {
     // manage note item background
     fun setBackgroundColor(color: Color, context: Context): Int {
         return when (color) {
-            Color.White -> {
-                ContextCompat.getColor(context, R.color.white)
+            Color.MidnightGreen -> {
+                ContextCompat.getColor(context, R.color.MidnightGreen)
             }
 
             Color.Red -> {
@@ -44,7 +44,7 @@ class Utils {
     }
 
     enum class Color {
-        White,
+        MidnightGreen,
         Orange,
         Blue,
         Yellow,

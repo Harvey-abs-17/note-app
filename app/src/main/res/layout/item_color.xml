@@ -6,5 +6,12 @@
 	android:layout_margin="8dp"
 	app:cardBackgroundColor="@color/Blue"
 	app:cardCornerRadius="8dp">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/color_container">
+		
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

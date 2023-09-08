@@ -1,6 +1,9 @@
 package com.example.noteapp.ui.fragments.note
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -8,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -52,6 +56,8 @@ class NoteFragment : Fragment(), NoteContract.View {
     )
     private val noteArgs: NoteFragmentArgs by navArgs()
     private var noteType: NoteQueryType? = null
+    private var updateNoteCreateTime: String? = null
+    private var updateNoteCreateDate: String? = null
 
     @Inject
     lateinit var noteEntity: NoteEntity
@@ -74,7 +80,6 @@ class NoteFragment : Fragment(), NoteContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkNoteQueryType()
         binding.apply {
             // back btn navigation
             detailToolBar.setNavigationOnClickListener {
@@ -98,10 +103,15 @@ class NoteFragment : Fragment(), NoteContract.View {
             //save new notes
             saveBtn.setOnClickListener {
                 //fill note entity title and description
-                if (titleEditText.text.isNotEmpty() && descriptionEditText.text.isNotEmpty() && noteEntity.create_date.isNotEmpty() && noteEntity.create_time.isNotEmpty()) {
+                if (titleEditText.text.isNotEmpty() && descriptionEditText.text.isNotEmpty()) {
                     noteEntity.title = titleEditText.text.toString()
                     noteEntity.description = descriptionEditText.text.toString()
-                    //save new note
+                    //if user does not select time and date
+                    if (noteEntity.create_date.isEmpty() && noteEntity.create_time.isEmpty()) {
+                        noteEntity.create_time = "${cal.get(Calendar.HOUR)}:${cal.get(Calendar.MINUTE)}"
+                        noteEntity.create_date = SimpleDateFormat("MM/dd/yyyy").format(MaterialDatePicker.todayInUtcMilliseconds())
+                    }
+                    //save note
                     if (noteType == NoteQueryType.UPDATE) {
                         noteEntity.id = noteArgs.noteId
                         presenter.updateNotePresenter(noteEntity)
@@ -124,8 +134,12 @@ class NoteFragment : Fragment(), NoteContract.View {
         initColorAdapter()
         //note background color
         setNoteFragmentBackgroundColor()
+        //check query type
+        checkNoteQueryType()
+
     }
 
+    //check query type -> update or insert
     private fun checkNoteQueryType() {
         noteType = if (noteArgs.noteId > 0) {
             presenter.getNoteByIdPresenter(noteArgs.noteId)
@@ -135,7 +149,7 @@ class NoteFragment : Fragment(), NoteContract.View {
         }
     }
 
-
+    //set note back ground from color adapter
     private fun setNoteFragmentBackgroundColor() {
         colorAdapter.itemClickListener {
             binding.root.setBackgroundColor(Utils().setBackgroundColor(it, requireContext()))
@@ -156,6 +170,7 @@ class NoteFragment : Fragment(), NoteContract.View {
         }
     }
 
+    //init color rec
     private fun initColorAdapter() {
         colorAdapter.differ.submitList(colorsList)
         binding.colorRec.initRec(
@@ -164,17 +179,28 @@ class NoteFragment : Fragment(), NoteContract.View {
         )
     }
 
+    // set pine menu item tint and value
+    @SuppressLint("ResourceType")
     private fun manageIsPinned(item: MenuItem): Boolean {
         isPinned = if (!isPinned) {
             item.icon?.setTint(ContextCompat.getColor(requireContext(), R.color.SafetyOrange))
             true
         } else {
-            item.icon?.setTint(ContextCompat.getColor(requireContext(), R.color.white))
+            val typeValue = TypedValue()
+            context?.theme?.resolveAttribute(
+                android.R.attr.textColorSecondary, typeValue, false
+            )
+            item.icon?.setTint(
+                ContextCompat.getColor(
+                    requireContext(), typeValue.data
+                )
+            )
             false
         }
         return isPinned
     }
 
+    //show reminder alert dialog to choose time and date
     private fun showReminderAlertDialog() {
         val alertBuilder = AlertDialog.Builder(requireContext())
         val alertBinding = AlertReminderBinding.inflate(
@@ -186,6 +212,12 @@ class NoteFragment : Fragment(), NoteContract.View {
         alertBuilder.setCancelable(false)
         val alertDialog = alertBuilder.create()
         alertBinding.apply {
+            if (noteType == NoteQueryType.UPDATE) {
+                timePickerTxt.text = updateNoteCreateTime
+                datePickerTxt.text = updateNoteCreateDate
+                noteEntity.create_time = timePickerTxt.text.toString()
+                noteEntity.create_date = datePickerTxt.text.toString()
+            }
             cancelBtn.setOnClickListener {
                 alertDialog.dismiss()
             }
@@ -215,6 +247,7 @@ class NoteFragment : Fragment(), NoteContract.View {
         alertDialog.show()
     }
 
+    //show material date picker dialog
     private fun showDatePickerDialog(
         datePickerTxt: TextView,
     ) {
@@ -244,6 +277,7 @@ class NoteFragment : Fragment(), NoteContract.View {
         }
     }
 
+    //show material time picker dialog
     private fun showTimePickerDialog(timePickerTxt: TextView) {
         //create date picker
         val timer = MaterialTimePicker.Builder()
@@ -264,17 +298,56 @@ class NoteFragment : Fragment(), NoteContract.View {
         timer.show(parentFragmentManager, "hadi")
     }
 
+    //close note fragment when click on save btn
     override fun closeFragment() {
         findNavController().popBackStack()
     }
 
-    override fun loadNoteData(noteEntity: NoteEntity) {
+    //load note data for update
+    @SuppressLint("ResourceType")
+    override fun loadNoteData(note: NoteEntity) {
         binding.apply {
-            titleEditText.setText(noteEntity.title)
-            descriptionEditText.setText(noteEntity.description)
-            root.setBackgroundColor(Utils().setBackgroundColor(noteEntity.color, requireContext()))
-            isPinned = noteEntity.isPinned
+            //set txt fields data
+            titleEditText.setText(note.title)
+            descriptionEditText.setText(note.description)
+            //set background color
+            root.setBackgroundColor(Utils().setBackgroundColor(note.color, requireContext()))
+            descriptionEditText.setBackgroundColor(
+                Utils().setBackgroundColor(
+                    note.color,
+                    requireContext()
+                )
+            )
+            titleEditText.setBackgroundColor(
+                Utils().setBackgroundColor(
+                    note.color,
+                    requireContext()
+                )
+            )
+            //manage pin item color
+            isPinned = note.isPinned
+            if (isPinned) {
+                detailToolBar.menu.findItem(R.id.pin_item).icon?.setTint(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.SafetyOrange
+                    )
+                )
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                    detailToolBar.menu.findItem(R.id.pin_item).icon?.setTint(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            android.R.attr.textColorSecondary
+                        )
+                    )
+                }
+            }
         }
+        //set time and date data
+        updateNoteCreateTime = note.create_time
+        updateNoteCreateDate = note.create_date
+
     }
 
     override fun onStop() {

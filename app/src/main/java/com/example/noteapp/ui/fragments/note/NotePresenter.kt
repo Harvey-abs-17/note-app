@@ -14,8 +14,30 @@ class NotePresenter @Inject constructor(
     private val view: NoteContract.View
 ) : BasePresenterImpl(), NoteContract.Presenter {
 
-    override fun insertNewNote(noteEntity: NoteEntity) {
+    override fun insertNewNotePresenter(noteEntity: NoteEntity) {
         disposable = repository.insertNewNoteRepository(noteEntity)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.closeFragment()
+            }, {
+                Log.e(ERROR_TAG, it.message.toString())
+            })
+    }
+
+    override fun getNoteByIdPresenter(noteId: Int) {
+        disposable = repository.getNoteByIdRepository(noteId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.loadNoteData(it)
+            }, {
+                Log.e(ERROR_TAG, it.message.toString())
+            })
+    }
+
+    override fun updateNotePresenter(noteEntity: NoteEntity) {
+        disposable = repository.updateNoteRepository(noteEntity)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

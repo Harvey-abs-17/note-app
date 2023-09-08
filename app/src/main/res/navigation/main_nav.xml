@@ -9,10 +9,19 @@
 		android:id="@+id/homeFragment"
 		android:name="com.example.noteapp.ui.fragments.home.HomeFragment"
 		android:label="fragment_home"
-		tools:layout="@layout/fragment_home" />
+		tools:layout="@layout/fragment_home" >
+		<action
+			android:id="@+id/action_homeFragment_to_noteFragment"
+			app:destination="@id/noteFragment" />
+	</fragment>
 	<fragment
 		android:id="@+id/noteFragment"
 		android:name="com.example.noteapp.ui.fragments.note.NoteFragment"
 		android:label="fragment_note"
-		tools:layout="@layout/fragment_note" />
+		tools:layout="@layout/fragment_note" >
+		<argument
+			android:name="noteId"
+			app:argType="integer"
+			android:defaultValue="0" />
+	</fragment>
 </navigation>

@@ -7,10 +7,13 @@ interface NoteContract {
 
     interface View{
         fun closeFragment()
+        fun loadNoteData( noteEntity: NoteEntity )
     }
 
     interface Presenter :BasePresenter{
-        fun insertNewNote(noteEntity: NoteEntity)
+        fun insertNewNotePresenter(noteEntity: NoteEntity)
+        fun getNoteByIdPresenter( noteId :Int )
+        fun updateNotePresenter( noteEntity: NoteEntity )
     }
 
 }

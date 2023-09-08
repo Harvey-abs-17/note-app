@@ -3,10 +3,13 @@ package com.example.noteapp.ui.fragments.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.noteapp.R
 import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.databinding.ItemNoteBinding
+import com.example.noteapp.utils.NoteQueryType
 import com.example.noteapp.utils.Utils
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -35,6 +38,29 @@ class NoteAdapter @Inject constructor(@ApplicationContext private val context: C
                         context = context
                     )
                 )
+                //create pop up menu
+                popUpMenu.setOnClickListener {
+                    val popupMenu = PopupMenu(context, popUpMenu)
+                    popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
+                    popupMenu.show()
+                    //on menu item click listener
+                    popupMenu.setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.update_note -> {
+                                onItemClickListener?.let {
+                                    it(noteItem.id, NoteQueryType.UPDATE)
+                                }
+                            }
+
+                            R.id.delete_note -> {
+                                onItemClickListener?.let {
+                                    it(noteItem.id, NoteQueryType.DELETE)
+                                }
+                            }
+                        }
+                        return@setOnMenuItemClickListener false
+                    }
+                }
             }
         }
     }
@@ -54,6 +80,12 @@ class NoteAdapter @Inject constructor(@ApplicationContext private val context: C
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    //on item click listener
+    private var onItemClickListener: ((noteId: Int, queryType: NoteQueryType) -> Unit)? = null
+    fun itemClickListener(listener: ((noteId: Int, queryType: NoteQueryType) -> Unit)) {
+        onItemClickListener = listener
     }
 
     //set rec data

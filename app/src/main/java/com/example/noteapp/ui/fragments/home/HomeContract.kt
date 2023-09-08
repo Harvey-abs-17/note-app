@@ -12,10 +12,12 @@ interface HomeContract {
         fun showEmpty(isShown: Boolean)
         fun visiblePinnedView(isShown: Boolean)
         fun visibleUpcomingView(isShown: Boolean)
+        fun showDeleteMessage()
     }
 
     interface Presenter : BasePresenter {
         fun getAllNotePresenter()
+        fun deleteNotePresenter( noteId :Int )
     }
 
 }

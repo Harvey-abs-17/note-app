@@ -1,12 +1,16 @@
 package com.example.noteapp.ui.fragments.home
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.data.repository.HomeRepository
 import com.example.noteapp.ui.base.BasePresenterImpl
 import com.example.noteapp.utils.ERROR_TAG
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -72,8 +76,20 @@ class HomePresenter @Inject constructor(
             }, {
                 Log.e(ERROR_TAG, it.message.toString())
             })
-
     }
 
-
+    @SuppressLint("CheckResult")
+    override fun deleteNotePresenter(noteId: Int) {
+        repository.getNoteByIdRepository(noteId)
+            .flatMapCompletable { note ->
+                return@flatMapCompletable repository.deleteNoteRepository(note)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                view.showDeleteMessage()
+            }, {
+                Log.e(ERROR_TAG, it.message.toString())
+            })
+    }
 }

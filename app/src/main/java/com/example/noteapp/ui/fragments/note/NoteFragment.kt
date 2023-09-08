@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapp.R
@@ -18,6 +19,7 @@ import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.databinding.AlertReminderBinding
 import com.example.noteapp.databinding.FragmentNoteBinding
 import com.example.noteapp.ui.fragments.note.adapter.ColorAdapter
+import com.example.noteapp.utils.NoteQueryType
 import com.example.noteapp.utils.Utils
 import com.example.noteapp.utils.initRec
 import com.google.android.material.datepicker.CalendarConstraints
@@ -48,6 +50,8 @@ class NoteFragment : Fragment(), NoteContract.View {
         Utils.Color.White,
         Utils.Color.Yellow
     )
+    private val noteArgs: NoteFragmentArgs by navArgs()
+    private var noteType: NoteQueryType? = null
 
     @Inject
     lateinit var noteEntity: NoteEntity
@@ -70,6 +74,7 @@ class NoteFragment : Fragment(), NoteContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkNoteQueryType()
         binding.apply {
             // back btn navigation
             detailToolBar.setNavigationOnClickListener {
@@ -97,7 +102,12 @@ class NoteFragment : Fragment(), NoteContract.View {
                     noteEntity.title = titleEditText.text.toString()
                     noteEntity.description = descriptionEditText.text.toString()
                     //save new note
-                    presenter.insertNewNote(noteEntity)
+                    if (noteType == NoteQueryType.UPDATE) {
+                        noteEntity.id = noteArgs.noteId
+                        presenter.updateNotePresenter(noteEntity)
+                    } else {
+                        presenter.insertNewNotePresenter(noteEntity)
+                    }
                 } else {
                     Snackbar.make(
                         binding.root,
@@ -115,6 +125,16 @@ class NoteFragment : Fragment(), NoteContract.View {
         //note background color
         setNoteFragmentBackgroundColor()
     }
+
+    private fun checkNoteQueryType() {
+        noteType = if (noteArgs.noteId > 0) {
+            presenter.getNoteByIdPresenter(noteArgs.noteId)
+            NoteQueryType.UPDATE
+        } else {
+            NoteQueryType.INSERT
+        }
+    }
+
 
     private fun setNoteFragmentBackgroundColor() {
         colorAdapter.itemClickListener {
@@ -246,6 +266,15 @@ class NoteFragment : Fragment(), NoteContract.View {
 
     override fun closeFragment() {
         findNavController().popBackStack()
+    }
+
+    override fun loadNoteData(noteEntity: NoteEntity) {
+        binding.apply {
+            titleEditText.setText(noteEntity.title)
+            descriptionEditText.setText(noteEntity.description)
+            root.setBackgroundColor(Utils().setBackgroundColor(noteEntity.color, requireContext()))
+            isPinned = noteEntity.isPinned
+        }
     }
 
     override fun onStop() {

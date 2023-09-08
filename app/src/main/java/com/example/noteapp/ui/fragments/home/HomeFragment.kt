@@ -1,20 +1,26 @@
 package com.example.noteapp.ui.fragments.home
 
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.noteapp.data.model.NoteEntity
 import com.example.noteapp.databinding.FragmentHomeBinding
 import com.example.noteapp.ui.fragments.home.adapter.NoteAdapter
+import com.example.noteapp.utils.NoteQueryType
 import com.example.noteapp.utils.initRec
 import com.example.noteapp.utils.showView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), HomeContract.View {
@@ -44,7 +50,26 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getAllNotePresenter()
+        handleAdapterClickListener(pinAdapter)
+        handleAdapterClickListener(upcomingAdapter)
     }
+
+    private fun handleAdapterClickListener( adapter :NoteAdapter ){
+        adapter.itemClickListener { noteId, queryType ->
+            when(queryType){
+
+                NoteQueryType.UPDATE ->{
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNoteFragment(noteId))
+                }
+
+                NoteQueryType.DELETE ->{
+                    presenter.deleteNotePresenter(noteId)
+                }
+                else -> {}
+            }
+        }
+    }
+
 
     //init pinned rec data
     override fun loadPinnedNotes(notes: List<NoteEntity>) {
@@ -87,6 +112,10 @@ class HomeFragment : Fragment(), HomeContract.View {
         binding.apply {
             upcomingLayout.showView(isShown)
         }
+    }
+
+    override fun showDeleteMessage() {
+        Toast.makeText(requireContext(), "salam", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStop() {

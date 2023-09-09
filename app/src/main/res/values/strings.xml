@@ -15,4 +15,13 @@
 	<string name="time">Time</string>
 	<string name="update">Update</string>
 	<string name="delete">Delete</string>
+	<string name="filter">Filter</string>
+	<string name="search_for_notes">Search for notes</string>
+	<string name="nothing_found">Nothing found</string>
+	<string name="color">Color</string>
+	<string name="category">Category</string>
+	<string name="apply_filter">Apply filter</string>
+	<string name="reset_filter">Reset filter</string>
+	<string name="pinned">Pinned</string>
+	<string name="search_options">Search options</string>
 </resources>

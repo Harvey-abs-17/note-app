@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.fragments.search.SearchFragment">
+	
+	<!--  search toolbar	-->
+	<com.google.android.material.appbar.MaterialToolbar
+		android:id="@+id/search_tool_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/colorSecondary"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:menu="@menu/search_menu"
+		app:navigationIcon="@drawable/baseline_keyboard_backspace_24"
+		app:navigationIconTint="?attr/colorOnSecondary"
+		app:title="Search"
+		app:titleCentered="true" />
+	
+	<!--  search rec	-->
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/search_item_rec"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/search_tool_bar" />
+	
+	<!--  search hint layout 	-->
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/search_hint_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		
+		<ImageView
+			android:id="@+id/search_image"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/baseline_search_24"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:tint="@color/SafetyOrange" />
+		
+		<TextView
+			android:id="@+id/search_hint_txt"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/search_for_notes"
+			android:textColor="@color/SafetyOrange"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="@id/search_image"
+			app:layout_constraintStart_toStartOf="@id/search_image"
+			app:layout_constraintTop_toBottomOf="@id/search_image" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	<!--  not found layout	-->
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/search_empty_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<ImageView
+			android:id="@+id/null_image"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/empty"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:tint="@color/SafetyOrange" />
+		
+		<TextView
+			android:id="@+id/null_txt"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/nothing_found"
+			android:textColor="@color/SafetyOrange"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="@id/null_image"
+			app:layout_constraintStart_toStartOf="@id/null_image"
+			app:layout_constraintTop_toBottomOf="@id/null_image" />
+	
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

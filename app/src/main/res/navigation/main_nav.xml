@@ -24,4 +24,9 @@
 			app:argType="integer"
 			android:defaultValue="0" />
 	</fragment>
+	<fragment
+		android:id="@+id/searchFragment"
+		android:name="com.example.noteapp.ui.fragments.search.SearchFragment"
+		android:label="fragment_search"
+		tools:layout="@layout/fragment_search" />
 </navigation>

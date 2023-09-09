@@ -38,6 +38,10 @@ class MainActivity : AppCompatActivity() {
                         bottomAppBar.showView(true)
                         addNoteBtn.showView(true)
                     }
+                    R.id.searchFragment ->{
+                        bottomAppBar.showView(false)
+                        addNoteBtn.showView(false)
+                    }
                 }
             }
             //navigate to note fragment

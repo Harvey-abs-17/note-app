@@ -9,13 +9,9 @@ class HomeRepository @Inject constructor(private val noteDao: NoteDao) {
     fun getAllNotesRepository() = noteDao.getAllNotes()
 
     fun getNotesByPinnedValueRepository(isPinned: Boolean) = noteDao.getNotesByPinnedValue(isPinned)
-<<<<<<< HEAD
 
     fun getNoteByIdRepository( noteId: Int ) = noteDao.getNoteById(noteId)
 
     fun deleteNoteRepository( noteEntity: NoteEntity ) = noteDao.deleteNote(noteEntity)
-
-=======
->>>>>>> master
 
 }

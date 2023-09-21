@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentFilterSearchBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FilterSearchFragment : BottomSheetDialogFragment() {
 
     //binding

@@ -3,6 +3,7 @@ package com.example.noteapp.utils
 import androidx.fragment.app.Fragment
 import com.example.noteapp.ui.fragments.home.HomeContract
 import com.example.noteapp.ui.fragments.note.NoteContract
+import com.example.noteapp.ui.fragments.search.SearchContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +21,9 @@ object ViewContractModuleFragment {
     @Provides
     @FragmentScoped
     fun provideNoteContractView( fragment: Fragment ) :NoteContract.View = fragment as NoteContract.View
+
+    @Provides
+    @FragmentScoped
+    fun provideSearchContractView( fragment :Fragment ) :SearchContract.View = fragment as SearchContract.View
 
 }

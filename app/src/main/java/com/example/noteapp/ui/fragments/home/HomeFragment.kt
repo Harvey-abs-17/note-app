@@ -57,7 +57,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     private fun handleAdapterClickListener( adapter :NoteAdapter ){
         adapter.itemClickListener { noteId, queryType ->
             when(queryType){
-
                 NoteQueryType.UPDATE ->{
                     findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNoteFragment(noteId))
                 }
